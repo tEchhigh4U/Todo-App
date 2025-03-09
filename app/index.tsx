@@ -55,7 +55,7 @@ export default function Index() {
 
   const renderItem = ({ item }: { item: DataProps }) => (
     <View style={styles.todoItem}>
-      <Text style={styles.todoItemID}>
+      <Text style={styles.todoItemDate}>
         {item.createdAt.toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric'
@@ -207,6 +207,14 @@ function createStyles(theme: Theme, colorScheme: ColorSchemeName): Styles {
       maxWidth: 1024,
       marginHorizontal: 'auto',
       pointerEvents: 'auto',
+    },
+    todoItemDate:{
+      flexDirection: 'row',
+      fontSize: 16,
+      fontFamily: "Inter_500Medium",
+      paddingRight: 10,
+      paddingLeft: 8,
+      color: colorScheme === 'dark' ? 'white' : 'black',
     },
     todoText: {
       flex: 1,
