@@ -17,7 +17,9 @@ export default function Index() {
       setTodos([{
         id: newId,
         title: text,
-        isCompleted: false
+        isCompleted: false,
+        createdAt: new Date(),
+        updatedAt: null
       }, ...todos]);
 
     setText('');
@@ -36,7 +38,12 @@ export default function Index() {
 
   const renderItem = ({ item }: { item: DataProps }) => (
     <View style={styles.todoItem}>
-      <Text style={styles.todoItemID}>{item.id}</Text>
+      <Text style={styles.todoItemID}>
+        {item.createdAt.toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric'
+        })}
+        </Text>
 
       <Text style={[
         styles.todoText, 
@@ -53,6 +60,11 @@ export default function Index() {
   
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>TODO App</Text>
+        <Text style={styles.headerSubtitle}>Help you manage your daily tasks</Text>
+      </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -73,7 +85,7 @@ export default function Index() {
         contentContainerStyle={ {flexGrow: 1 }}
       />
 
-      <Text style={styles.version}>Version: 1.0.0</Text>
+      <Text style={styles.versionText}>Version: 1.0.0</Text>
     </SafeAreaView>
   );
 }
@@ -83,6 +95,24 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     backgroundColor: 'black' 
+  },
+  headerContainer: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333', // Subtle darker border
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: 'rgb(244,244,244)', 
+    marginBottom: 8,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#aaaaaa',
+    textAlign: 'center',
   },
   inputContainer:{
     flexDirection: 'row',
@@ -141,11 +171,14 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     color: 'gray',
   },
-  version:{
+  versionText: {
     fontSize: 10,
     color: 'gray',
     marginTop: 8,
     marginBottom: 8,
     paddingLeft: 8,
+    width: '100%',
+    textAlign: 'right',  // Add this to align text to the right
+    paddingRight: 8,     // Add some padding on the right side
   }
 })
